@@ -1,15 +1,15 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Xueqiang (Patrick) Xu",
+    "short_name": "Patrick Xu",
     "icons": [
         {
-            "src": "/~peiyang-song/images/android-chrome-192x192.png",
-            "sizes": "192x192",
+            "src": "/logo.png",
+            "sizes": "16x16",
             "type": "image/png"
         },
         {
-            "src": "/~peiyang-song/images/android-chrome-512x512.png",
-            "sizes": "512x512",
+            "src": "/logo2.png",
+            "sizes": "32x32",
             "type": "image/png"
         }
     ],
