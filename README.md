@@ -1,3 +1,3 @@
-# Pengrui Han's academic website
+# Xueqiang Xu's academic website
 
 Adapted from Jon Barron's public academic website: https://jonbarron.info/.
