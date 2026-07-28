@@ -107,6 +107,47 @@
 
           <heading>Selected Publications</heading>
 
+          <tr onmouseout="corank_stop()" onmouseover="corank_start()" id="corank">
+            <td style="padding:5px;width:17%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='corank_image'>
+                  <img src='images/corank/corank-1.png' width="150">
+                </div>
+                <img src='images/corank/corank.png' width="150">
+              </div>
+              <script type="text/javascript">
+                function corank_start() {
+                  document.getElementById('corank_image').style.opacity = "1";
+                }
+
+                function corank_stop() {
+                  document.getElementById('corank_image').style.opacity = "0";
+                }
+                corank_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:83%;vertical-align:middle">
+              <a target="_blank" href="https://arxiv.org/abs/2505.13757">
+                <papertitle>CoRank: LLM-Based Compact Reranking with Document Features for Scientific Retrieval</papertitle>
+              </a>
+              <br />
+              <a target="_blank" href="https://rachum-thu.github.io">Runchu Tian</a>*,
+              <strong>Xueqiang Xu</strong>*,
+              <a target="_blank" href="https://peterjin.me">Bowen Jin</a>,
+              <a target="_blank" href="https://seongku-kang.github.io">SeongKu Kang</a>,
+              and <a target="_blank" href="http://hanj.cs.illinois.edu">Jiawei Han</a> <strong>(* Equal Contribution)</strong>
+              <br />
+              <em>ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)</em>, 2026
+              <br />
+              <p><a target="_blank" href="https://arxiv.org/abs/2505.13757">Preprint</a>     <a target="_blank" href="https://doi.org/10.1145/3770855.3818844">DOI</a>     <a target="_blank" href="https://github.com/Rachum-thu/CoRank">Code</a>     <a target="_blank" href="posters/CoRank_KDD2026_poster.pdf">Poster</a></p>
+
+              <p></p>
+              <p>
+                We propose CoRank, a training-free three-stage framework for listwise reranking in scientific retrieval. Instead of feeding full documents to the LLM, CoRank ranks compact LLM-extracted representations (category, section, and keywords), so roughly ten times more candidates fit in one context window, and restores full text only for the resulting shortlist. This lifts average nDCG@10 from 50.6 to 55.5 across LLM backbones at 40% of the token cost of sliding-window reranking.
+              </p>
+            </td>
+          </tr>
+
           <tr onmouseout="zoes_stop()" onmouseover="zoes_start()" id="zoes">
             <td style="padding:5px;width:17%;vertical-align:middle">
               <div class="one">
