@@ -142,8 +142,17 @@ name {
   -webkit-transition: opacity .2s ease-in-out;
 }
 
-/* Co-author links recede to a blue-grey and only take the accent on hover, so
-   a 30-name author list does not outshout the paper title. */
+/* The whole author list recedes to a blue-grey -- linked names and plain ones
+   alike, so a 30-name list reads as one quiet block -- and only your own name
+   stays at full strength. Links still take the accent on hover. */
+.authors {
+  color: #59616e;
+}
+
+.authors .me {
+  color: #000000;
+}
+
 .authors a {
   color: #59616e;
 }
