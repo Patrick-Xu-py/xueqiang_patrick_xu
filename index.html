@@ -145,9 +145,8 @@
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2505.13757">Preprint</a>     <a target="_blank" href="https://doi.org/10.1145/3770855.3818844">DOI</a>     <a target="_blank" href="https://github.com/Rachum-thu/CoRank">Code</a>     <a target="_blank" href="posters/CoRank_KDD2026_poster.pdf">Poster</a></p>
 
-              <p></p>
               <p>
-                We propose CoRank, a training-free three-stage framework for listwise reranking in scientific retrieval. Instead of feeding full documents to the LLM, CoRank ranks compact LLM-extracted representations (category, section, and keywords), so roughly ten times more candidates fit in one context window, and restores full text only for the resulting shortlist. This lifts average nDCG@10 from 50.6 to 55.5 across LLM backbones at 40% of the token cost of sliding-window reranking.
+                Instead of full text, CoRank reranks compact LLM-extracted document features &mdash; category, section, keywords &mdash; so roughly 10&times; more candidates fit in one prompt. Training-free, it lifts average nDCG@10 from 50.6 to 55.5 at 40% of the token cost.
               </p>
             </td>
           </tr>
@@ -189,9 +188,8 @@
               <span class="venue">EACL 2026</span> <span class="venue-note">Main Conference</span>
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2506.04458">Preprint</a></p>
-              <p></p>
               <p>
-                We introduce ZOES, a novel approach to entity structure extraction that does not require any schema or annotated samples. ZOES operates via a principled mechanism of enrichment, refinement, and unification, based on the insight that an entity and its associated structure are mutually reinforcing.
+                ZOES extracts entity structures with no schema and no annotated samples, through a cycle of enrichment, refinement, and unification &mdash; an entity and its structure reinforce each other.
               </p>
             </td>
           </tr>
@@ -231,9 +229,8 @@
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2505.14146">Preprint</a>     <a target="_blank" href="https://github.com/pat-jj/s3?tab=readme-ov-file">Code</a></p>
               
-              <p></p>
               <p>
-                In this work, we propose s3, a lightweight, model-agnostic framework that decouples the searcher from the generator using only 2.4k data in the RL training process.
+                s3 is a lightweight, model-agnostic framework that decouples the searcher from the generator, trained with RL on only 2.4k examples.
               </p>
             </td>
           </tr>
@@ -302,9 +299,8 @@
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2512.16301">arXiv</a>     <a target="_blank" href="https://github.com/pat-jj/Awesome-Adaptation-of-Agentic-AI">Code</a></p>
               
-              <p></p>
               <p>
-                We unify the rapidly expanding research landscape of agentic AI systems into a systematic framework that spans both agent adaptations and tool adaptations. Cutting-edge agentic AI systems are built on foundation models that can be adapted to plan, reason, and interact with external tools to perform increasingly complex and specialized tasks.
+                A survey that unifies agentic AI research into one framework spanning agent adaptation and tool adaptation &mdash; how foundation models are adapted to plan, reason, and use external tools.
               </p>
             </td>
           </tr>
@@ -346,9 +342,8 @@
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2403.00165">Preprint</a>     <a target="_blank" href="https://github.com/yzhan238/TELEClass">Code</a></p>
               
-              <p></p>
               <p>
-                We propose TELEClass, which combines the general knowledge of LLMs and task-specific features mined from an unlabeled corpus. TELEClass automatically enriches the label taxonomy with class-indicative features and utilizes novel LLM-based data annotation and generation methods specifically tailored for hierarchical text classification.
+                TELEClass pairs the general knowledge of LLMs with features mined from an unlabeled corpus, enriching the label taxonomy for hierarchical text classification under minimal supervision.
               </p>
             </td>
           </tr>
@@ -388,9 +383,8 @@
               <br />
               <p class="links"><a target="_blank" href="https://arxiv.org/abs/2505.19588">Preprint</a></p>
               
-              <p></p>
               <p>
-                We introduce LogiCoL, a logically-informed contrastive learning objective for dense retrievers that handles queries with logical connectives. LogiCoL learns to respect subset and mutually-exclusive set relations between query results via soft constraints expressed through t-norm, achieving improvements in both retrieval performance and logical consistency.
+                LogiCoL trains dense retrievers on queries with logical connectives, imposing subset and mutual-exclusion relations as t-norm soft constraints &mdash; better retrieval and better logical consistency.
               </p>
             </td>
           </tr>
