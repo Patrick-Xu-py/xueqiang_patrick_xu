@@ -110,10 +110,13 @@ name {
    and the rows line up. Keep new thumbnails 3:2 or they will letterbox.
    object-fit overrides the width="150" attribute on the <img> itself. */
 .one {
-  width: 100%;
-  max-width: 168px;
-  aspect-ratio: 3 / 2;   /* so a narrow window shrinks the frame instead of
-                            widening the column and squeezing the text */
+  /* Definite width, not width:100%. The frame sits in an auto-layout <td>, so a
+     percentage width would depend on a column width that depends back on it --
+     the column collapses to zero and the thumbnails vanish. max-width still
+     lets it shrink on a narrow screen, with aspect-ratio keeping the shape. */
+  width: 168px;
+  max-width: 100%;
+  aspect-ratio: 3 / 2;
   position: relative;
   background: #ffffff;
   border: 1px solid #e3e6ec;
