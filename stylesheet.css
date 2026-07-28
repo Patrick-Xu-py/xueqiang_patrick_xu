@@ -105,19 +105,81 @@ name {
   font-size: 33px;  /* prev 32px */
 }
 
+/* Thumbnail frame. Every thumbnail is pre-padded to this same 3:2 on a white
+   ground (see the note in README), so the image fills the frame edge to edge
+   and the rows line up. Keep new thumbnails 3:2 or they will letterbox.
+   object-fit overrides the width="150" attribute on the <img> itself. */
 .one {
-  width: 150px;  /* prev 160px */
-  height: 150px;  /* prev 160px */
+  width: 100%;
+  max-width: 168px;
+  aspect-ratio: 3 / 2;   /* so a narrow window shrinks the frame instead of
+                            widening the column and squeezing the text */
   position: relative;
+  background: #ffffff;
+  border: 1px solid #e3e6ec;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.one img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* a no-op while thumbnails are 3:2; a safety net if one is not */
+  display: block;
 }
 
 .two {
-  width: 150px;  /* prev 160px */
-  height: 150px;  /* prev 160px */
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;  /* opaque, so the resting figure cannot show through */
   transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -webkit-transition: opacity .2s ease-in-out;
+}
+
+/* Co-author links recede to a blue-grey and only take the accent on hover, so
+   a 30-name author list does not outshout the paper title. */
+.authors a {
+  color: #59616e;
+}
+
+.authors a:focus,
+.authors a:hover {
+  color: #f09228;
+}
+
+/* Venue, as a tag: the one thing a visitor scans the list for. */
+.venue {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 3px;
+  background: #eaf1fa;
+  color: #14568f;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+
+.venue--preprint {
+  background: #f0f1f4;
+  color: #59616e;
+}
+
+.venue-note {
+  color: #59616e;
+  font-size: 15px;
+  font-style: italic;
+}
+
+/* The link row is written with runs of spaces, which HTML collapses to one. */
+.links a {
+  margin-right: 17px;
 }
 
 .fade {
