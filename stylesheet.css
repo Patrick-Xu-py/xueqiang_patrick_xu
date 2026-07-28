@@ -193,6 +193,145 @@ name {
   margin-right: 17px;
 }
 
+/* Header photo, as the template has it: fills its 37% column and is masked to a
+   circle. No width cap -- the column's 2.5% padding is what sets the gap to the
+   bio, and capping the image instead just strands it in the middle of the cell.
+   object-fit matters because the source is square: it crops rather than squashes
+   if a future photo is not. */
+.profile-photo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Credit under the profile photo. Quiet enough to stay out of the header's way,
+   still legible. */
+.photo-credit {
+  margin: 6px 0 0;
+  color: #59616e;
+  font-size: 12px;   /* the column is only ~120px wide, so it has to stay small */
+  text-align: center;
+}
+
+/* Photography strip: one row that scrolls itself, forever.
+
+   The photo list is written TWICE in the markup. The track slides left by half
+   its own width -- exactly one copy -- and then snaps back to 0, at which point
+   the second copy sits precisely where the first one started, so the seam is
+   invisible. Spacing is a margin on each item rather than a flex `gap`, because
+   a gap also lands *between* the two copies and would leave the -50% shift off
+   by half a gap. Duplicate the markup for any photo you add, or the loop tears.
+
+   Photos keep their own shape -- fixed height, natural width, no cropping -- so
+   portrait, square and landscape shots can sit in the same strip. */
+.photo-strip {
+  position: relative;
+  overflow: hidden;
+  width: 100%;   /* definite, so the max-content track is clipped, not followed */
+}
+
+.photo-track {
+  display: flex;
+  width: max-content;
+  animation: photo-scroll 70s linear infinite;
+}
+
+/* Pause while someone is actually looking at a photo (or tabbing through). */
+.photo-strip:hover .photo-track,
+.photo-strip:focus-within .photo-track {
+  animation-play-state: paused;
+}
+
+@keyframes photo-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.photo-track a {
+  display: block;
+  height: 170px;
+  margin-right: 10px;
+  border: 1px solid #e3e6ec;
+  border-radius: 5px;
+  overflow: hidden;
+  flex: none;
+}
+
+.photo-track img {
+  height: 100%;
+  width: auto;
+  display: block;
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
+}
+
+.photo-track a:focus img,
+.photo-track a:hover img {
+  opacity: .82;
+}
+
+/* Feather both ends into the page so photos enter and leave, not cut off. */
+.photo-strip::before,
+.photo-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.photo-strip::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
+}
+
+.photo-strip::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
+}
+
+/* Enlarged view. Hidden until a photo is clicked; the anchors still point at
+   the real file, so this degrades to a plain image link without JavaScript. */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .88);
+  cursor: zoom-out;
+}
+
+.lightbox.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox img {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 4px;
+}
+
+/* Motion off: no auto-scroll, drag or swipe the strip instead. */
+@media (prefers-reduced-motion: reduce) {
+  .photo-track {
+    animation: none;
+  }
+
+  .photo-strip {
+    overflow-x: auto;
+  }
+}
+
 .fade {
   transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;

@@ -14,3 +14,32 @@ Thumbnails live in `images/<paper>/` as a pair — `<paper>.png` is at rest and
 they fill the frame edge to edge; a figure of any other aspect will letterbox
 against the white. To convert a figure crop, trim its white margin, then pad it
 back out to 3:2 with a uniform margin (~4.5% of the width per side).
+
+## Adding a photo
+
+Drop the full-size file into `images/photos/`, then regenerate the thumbnails:
+
+```
+module load python/anaconda3/2.12.0   # only needed on a machine without PIL
+python3 -c "
+from PIL import Image; import os
+s, d = 'images/photos', 'images/photos/thumbs'
+for f in os.listdir(s):
+    p = os.path.join(s, f)
+    if os.path.isfile(p) and f.lower().endswith(('.jpeg','.jpg','.png')):
+        im = Image.open(p).convert('RGB')
+        im.resize((round(im.width*340/im.height), 340), Image.LANCZOS).save(
+            os.path.join(d, f), 'JPEG', quality=82, optimize=True, progressive=True)
+"
+```
+
+The strip shows the 340px-tall thumbnail (`src`) and links to the original
+(`href`) — nine originals are 2.4 MB, the thumbnails are 211 KB. Then add one
+`<a><img></a>` line to the `.photo-track` in the Photography section —
+**twice**, once in each half of the list. The strip loops by sliding exactly one copy of itself, so the two halves
+have to stay identical or the seam will jump. The second copy carries
+`aria-hidden="true" tabindex="-1"` so screen readers and the tab key see each
+photo once.
+
+Any aspect ratio works: the strip fixes the height and lets the width follow, so
+portrait, square, and landscape shots sit together without cropping.

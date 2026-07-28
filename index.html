@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.ico?v=1">
   <link rel="shortcut icon" href="favicon.ico?v=1">
   
-  <link rel="stylesheet" type="text/css" href="stylesheet.css?v=3">
+  <link rel="stylesheet" type="text/css" href="stylesheet.css?v=12">
 <meta name="google-site-verification" content="SppVkSFcpllgYfMj_yChDn5QreKfTWW1_cEwRTvVBMY" />
 </head>
 
@@ -32,7 +32,7 @@
       <td style="padding:0px">
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr style="padding:0px">
-            <td style="padding:1.5%;width:70%;vertical-align:middle">
+            <td style="padding:1.5%;width:72%;vertical-align:middle">
               <p style="text-align:center">
                 <name>Xueqiang (Patrick) Xu</name>
               </p>
@@ -51,8 +51,9 @@
 		<a target="_blank" href="https://www.linkedin.com/in/xueqiang-xu/">LinkedIn</a>
               </p>
             </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/profile_photo.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile_photo.jpg" class="hoverZoomLink"></a>
+            <td style="padding:2.5%;width:28%;max-width:28%">
+              <a href="images/profile.jpeg"><img alt="profile photo" src="images/profile_square.jpeg" class="profile-photo"></a>
+              <p class="photo-credit">Photo by Ben Wu</p>
             </td>
           </tr>
         </tbody></table>
@@ -348,46 +349,6 @@
             </td>
           </tr>
 
-          <tr onmouseout="logicol_stop()" onmouseover="logicol_start()" id="logicol">
-            <td style="padding:5px;width:17%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='logicol_image'>
-                  <img src='images/logical/logical-1.png' width="150">
-                </div>
-                <img src='images/logical/logical-2.png' width="150">
-              </div>
-              <script type="text/javascript">
-                function logicol_start() {
-                  document.getElementById('logicol_image').style.opacity = "1";
-                }
-
-                function logicol_stop() {
-                  document.getElementById('logicol_image').style.opacity = "0";
-                }
-                logicol_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:83%;vertical-align:middle">
-              <a target="_blank" href="https://arxiv.org/abs/2505.19588">
-                <papertitle>LogiCoL: Logically-Informed Contrastive Learning for Set-based Dense Retrieval</papertitle>
-              </a>
-              <br />
-              <span class="authors"><a target="_blank" href="https://yzshen.com">Yanzhen Shen</a>, 
-              <a target="_blank" href="https://www.linkedin.com/in/sihao-chen">Sihao Chen</a>, 
-              <strong class="me">Xueqiang Xu</strong>, 
-              <a target="_blank" href="https://yzhan238.github.io">Yunyi Zhang</a>,
-              <a target="_blank" href="https://www.chaitanyamalaviya.com">Chaitanya Malaviya</a>,
-              and <a target="_blank" href="https://www.cis.upenn.edu/~danroth/">Dan Roth</a></span>
-              <br />
-              <span class="venue">EMNLP 2025</span> <span class="venue-note">Main Conference</span>
-              <br />
-              <p class="links"><a target="_blank" href="https://arxiv.org/abs/2505.19588">Preprint</a></p>
-              
-              <p>
-                LogiCoL trains dense retrievers on queries with logical connectives, imposing subset and mutual-exclusion relations as t-norm soft constraints &mdash; better retrieval and better logical consistency.
-              </p>
-            </td>
-          </tr>
 
         </tbody></table>
 
@@ -404,9 +365,48 @@
           </tr>
         </tbody></table>
 
+	<!-- table-layout:fixed so the strip inside cannot widen this table. Under the
+	     default auto layout the cell is sized from its content, and the track is
+	     max-content wide (every photo in one row), which dragged the whole page
+	     out to ~2500px. Fixed layout takes the width from the table instead. -->
+	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20" style="table-layout:fixed"><tbody>
+          <tr>
+            <td>
+              <heading>Photography</heading>
+              <p>
+                Away from research I like keeping a record of my life, so a camera usually comes along &mdash; cities, cats, and whatever the light happens to be doing that day.
+              </p>
+              <!-- The strip scrolls by sliding one full copy of this list, so
+                   the two halves below must stay identical. Add a photo to both. -->
+              <div class="photo-strip">
+                <div class="photo-track">
+                  <a href="images/photos/algo.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/algo.jpeg" alt="a grey cat sitting against a bright wall"></a>
+                  <a href="images/photos/sunshine.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/sunshine.jpeg" alt="someone taking a photo in a sunlit park"></a>
+                  <a href="images/photos/Chicago.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/Chicago.jpeg" alt="a Chicago street at night"></a>
+                  <a href="images/photos/lake.jpg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/lake.jpg" alt="a kayak on green water, seen from above"></a>
+                  <a href="images/photos/cat.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/cat.jpeg" alt="a cat on a desk in front of a monitor"></a>
+                  <a href="images/photos/westlake.JPG" onclick="return openPhoto(this)"><img src="images/photos/thumbs/westlake.JPG" alt="West Lake seen from a hillside"></a>
+                  <a href="images/photos/wall.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/wall.jpeg" alt="a bicycle under an old archway"></a>
+                  <a href="images/photos/lazy.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/lazy.jpeg" alt="sunset over a road lined with power lines"></a>
+                  <a href="images/photos/tianmu.jpeg" onclick="return openPhoto(this)"><img src="images/photos/thumbs/tianmu.jpeg" alt="stone steps through a green forest"></a>
+
+                  <a href="images/photos/algo.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/algo.jpeg" alt=""></a>
+                  <a href="images/photos/sunshine.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/sunshine.jpeg" alt=""></a>
+                  <a href="images/photos/Chicago.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/Chicago.jpeg" alt=""></a>
+                  <a href="images/photos/lake.jpg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/lake.jpg" alt=""></a>
+                  <a href="images/photos/cat.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/cat.jpeg" alt=""></a>
+                  <a href="images/photos/westlake.JPG" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/westlake.JPG" alt=""></a>
+                  <a href="images/photos/wall.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/wall.jpeg" alt=""></a>
+                  <a href="images/photos/lazy.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/lazy.jpeg" alt=""></a>
+                  <a href="images/photos/tianmu.jpeg" onclick="return openPhoto(this)" aria-hidden="true" tabindex="-1"><img src="images/photos/thumbs/tianmu.jpeg" alt=""></a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody></table>
 
 
-	      
+
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr>
             <td style="padding:0px">
@@ -420,6 +420,27 @@
       </td>
     </tr>
   </table>
+
+  <div id="lightbox" class="lightbox" onclick="closePhoto()">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <script type="text/javascript">
+    function openPhoto(link) {
+      var img = document.getElementById('lightbox-img');
+      img.src = link.getAttribute('href');
+      img.alt = link.getElementsByTagName('img')[0].alt;
+      document.getElementById('lightbox').className = 'lightbox open';
+      return false;  // suppress the plain-file navigation the href falls back to
+    }
+
+    function closePhoto() {
+      document.getElementById('lightbox').className = 'lightbox';
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closePhoto(); }
+    });
+  </script>
 </body>
 
 </html>
