@@ -33,9 +33,12 @@ for f in os.listdir(s):
 "
 ```
 
-The strip shows the 340px-tall thumbnail (`src`) and links to the original
-(`href`) — nine originals are 2.4 MB, the thumbnails are 211 KB. Then add one
-`<a><img></a>` line to the `.photo-track` in the Photography section —
+Keep the originals under a 2000px long edge (quality 85) — the lightbox never
+shows more than a screenful, and a straight-off-the-camera 9 MB file will not
+load on a slow connection. The strip shows the 340px-tall thumbnail (`src`) and
+links to that original (`href`): nine originals are 3.4 MB, the thumbnails are
+217 KB. Then add one
+`<a><img></a>` line to the `.photo-track` in the Photos section —
 **twice**, once in each half of the list. The strip loops by sliding exactly one copy of itself, so the two halves
 have to stay identical or the seam will jump. The second copy carries
 `aria-hidden="true" tabindex="-1"` so screen readers and the tab key see each
