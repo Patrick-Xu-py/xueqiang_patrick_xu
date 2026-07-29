@@ -215,7 +215,8 @@ name {
   text-align: center;
 }
 
-/* Photography strip: one row that scrolls itself, forever.
+/* Photography strip: one row that scrolls itself, forever, and that you can
+   also grab and slide by hand.
 
    The photo list is written TWICE in the markup. The track slides left by half
    its own width -- exactly one copy -- and then snaps back to 0, at which point
@@ -223,6 +224,10 @@ name {
    invisible. Spacing is a margin on each item rather than a flex `gap`, because
    a gap also lands *between* the two copies and would leave the -50% shift off
    by half a gap. Duplicate the markup for any photo you add, or the loop tears.
+
+   The CSS animation below is the no-JavaScript baseline. When the script runs
+   it adds .is-interactive, which switches the animation off and drives the same
+   -50% loop from a rAF loop instead, so a drag can push it around mid-flight.
 
    Photos keep their own shape -- fixed height, natural width, no cropping -- so
    portrait, square and landscape shots can sit in the same strip. */
@@ -249,6 +254,22 @@ name {
   to   { transform: translateX(-50%); }
 }
 
+/* Script in charge: it owns the transform, so the keyframes must let go.
+   touch-action keeps vertical page scrolling with the browser while handing
+   horizontal movement to the drag handler. */
+.photo-strip.is-interactive .photo-track {
+  animation: none;
+}
+
+.photo-strip.is-interactive {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.photo-strip.is-grabbing {
+  cursor: grabbing;
+}
+
 .photo-track a {
   display: block;
   height: 170px;
@@ -263,6 +284,11 @@ name {
   height: 100%;
   width: auto;
   display: block;
+  /* A drag should slide the strip, not pick the photo up as a drag image. */
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -webkit-transition: opacity .2s ease-in-out;
@@ -321,13 +347,15 @@ name {
   border-radius: 4px;
 }
 
-/* Motion off: no auto-scroll, drag or swipe the strip instead. */
+/* Motion off: no auto-scroll, drag or swipe the strip instead. With the script
+   running that is the drag handler's job (and it skips the auto-drift too), so
+   the native scrollbar fallback is only for the no-JavaScript case. */
 @media (prefers-reduced-motion: reduce) {
   .photo-track {
     animation: none;
   }
 
-  .photo-strip {
+  .photo-strip:not(.is-interactive) {
     overflow-x: auto;
   }
 }

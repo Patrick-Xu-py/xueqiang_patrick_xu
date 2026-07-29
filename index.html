@@ -414,6 +414,143 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { closePhoto(); }
     });
+
+    /* Hand-drivable photo strip.
+
+       The stylesheet loops the track with a keyframe animation; that is the
+       baseline for browsers without JavaScript or Pointer Events. Here we take
+       the same loop over in a rAF frame so a pointer can push it: the track
+       still slides left forever, but a drag adds to the offset directly, a
+       flick coasts, and a horizontal wheel/trackpad swipe nudges it. The offset
+       is kept modulo one copy of the list, which is what makes it seamless. */
+    (function () {
+      var strip = document.querySelector('.photo-strip');
+      if (!strip || !window.PointerEvent || !window.requestAnimationFrame) { return; }
+      var track = strip.querySelector('.photo-track');
+      if (!track || !track.children.length) { return; }
+
+      strip.className += ' is-interactive';   // cursor, touch-action
+      // Kill the keyframes on the element itself, not only through that class.
+      // A running CSS animation outranks an inline transform, so a stale or
+      // unloaded stylesheet would otherwise drag the track back every frame and
+      // the strip would look completely unresponsive.
+      track.style.animation = 'none';
+
+      var AUTO_SPEED = 34;    // px/sec, about what the old 70s CSS loop ran at
+      var FRICTION = 0.94;    // per-frame decay of a flick
+      var DRAG_SLOP = 6;      // px of travel before a press counts as a drag
+
+      var half = 0;           // width of one copy of the list, the wrap point
+      var offset = 0;         // how far the track has slid left, in px
+      var velocity = 0;       // px/frame while a flick coasts
+      var dragging = false;
+      var travel = 0;         // pointer distance this press, vs DRAG_SLOP
+      var lastX = 0;
+      var held = false;       // pointer over the strip, or a photo focused
+      var still = window.matchMedia &&
+                  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Sum the first copy only. Widths depend on images that may still be
+      // loading, so this is re-run on load and on resize.
+      function measure() {
+        var items = track.children, width = 0;
+        for (var i = 0; i < items.length / 2; i++) {
+          var style = window.getComputedStyle(items[i]);
+          width += items[i].offsetWidth +
+                   (parseFloat(style.marginLeft) || 0) +
+                   (parseFloat(style.marginRight) || 0);
+        }
+        half = width;
+      }
+
+      function place() {
+        if (half > 0) { offset = ((offset % half) + half) % half; }
+        track.style.transform = 'translateX(' + (-offset) + 'px)';
+      }
+
+      var previous = null;
+      function frame(now) {
+        var elapsed = previous === null ? 0 : Math.min((now - previous) / 1000, 0.1);
+        previous = now;
+        if (!dragging) {
+          if (Math.abs(velocity) > 0.05) {
+            offset += velocity;
+            velocity *= FRICTION;
+          } else if (!held && !still) {
+            velocity = 0;
+            offset += AUTO_SPEED * elapsed;
+          }
+          place();
+        }
+        window.requestAnimationFrame(frame);
+      }
+
+      // Deliberately no setPointerCapture here: with the pointer captured, the
+      // click lands on .photo-strip instead of the <a> it started on, and the
+      // lightbox never opens. Tracking the move on the window costs nothing and
+      // leaves the anchor's own click intact.
+      strip.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0 || dragging) { return; }   // ignore a second finger
+        dragging = true;
+        travel = 0;
+        velocity = 0;
+        lastX = e.clientX;
+        strip.className += ' is-grabbing';
+      });
+
+      window.addEventListener('pointermove', function (e) {
+        if (!dragging) { return; }
+        var dx = e.clientX - lastX;
+        lastX = e.clientX;
+        travel += Math.abs(dx);
+        offset -= dx;
+        velocity = Math.max(-60, Math.min(60, -dx));   // carry into the coast
+        place();
+        if (travel > DRAG_SLOP) { e.preventDefault(); }   // past a click: no text selection
+      });
+
+      function release() {
+        if (!dragging) { return; }
+        dragging = false;
+        strip.className = strip.className.replace(' is-grabbing', '');
+      }
+      window.addEventListener('pointerup', release);
+      window.addEventListener('pointercancel', release);
+
+      // A drag that ends on a photo must not also open the lightbox.
+      strip.addEventListener('click', function (e) {
+        if (travel > DRAG_SLOP) {
+          e.preventDefault();
+          e.stopPropagation();
+          travel = 0;
+        }
+      }, true);
+
+      // Horizontal wheel / two-finger trackpad swipe. Vertical scrolling is
+      // left alone so the page keeps scrolling normally over the strip.
+      strip.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) { return; }
+        offset += e.deltaX;
+        velocity = 0;
+        place();
+        e.preventDefault();
+      }, { passive: false });
+
+      strip.addEventListener('pointerenter', function () { held = true; });
+      strip.addEventListener('pointerleave', function () { held = false; });
+      strip.addEventListener('focusin', function () { held = true; });
+      strip.addEventListener('focusout', function () { held = false; });
+
+      for (var i = 0; i < track.children.length; i++) {
+        track.children[i].draggable = false;
+      }
+
+      measure();
+      place();
+      window.addEventListener('load', measure);
+      window.addEventListener('resize', measure);
+      window.requestAnimationFrame(frame);
+    })();
   </script>
 </body>
 
